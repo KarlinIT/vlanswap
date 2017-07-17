@@ -16,35 +16,36 @@ my division the support of a current tool very simliar to this one was in questi
 prepare for the worse outcome.
 
 # How to use
-This tool is based on Python 2.7.5 and Paramiko 2.2.1. There are six required switches; (-H|--hostname), 
-(-u|--username), (-p|--password), (-x|--port), (-n|--vlan-number), and (-o|--option)
+This tool is based on Python 2.7.5 and Paramiko 2.2.1. 
 
-Usage: useage: vlanswap.py -o (check|assign) -H (IP Address) -u (Username) -p (Password) -x (Port) -n (VLAN Number)
+Review the usage output and the required switches below:
 
-Options:
-  --version             show program's version number and exit
-  
-  -h, --help            show this help message and exit
-  
-  -H IPADDR, --hostname=IPADDR
-                        Enter the IP Address or Hostname of the switch.
-                        
-  -u USERNAME, --username=USERNAME
-                        Enter the username for the SSH connection to the
-                        switch.
-                        
-  -p PASSWORD, --password=PASSWORD
-                        Enter the password for the SSH connection to the
-                        switch.
-                        
-  -x SWITCHPORT, --port=SWITCHPORT
-                        Enter the port of the switch. i.e. FastEthernet0/1
-                        
-  -n SWITCHVLAN, --vlan-number=SWITCHVLAN
-                        Enter the VLAN number of the switch. i.e. '30'
-                        
-  -o OPTION, --option=(check|assign)
-                        Select if you are assigning or checking a port's vlan.
+>Usage: useage: vlanswap.py -o (check|assign) -H (IP Address) -u (Username) -p (Password) -x (Port) -n (VLAN Number)
+>
+>Options:
+>  --version             show program's version number and exit
+>  
+>  -h, --help            show this help message and exit
+>  
+>  -H IPADDR, --hostname=IPADDR
+>                        Enter the IP Address or Hostname of the switch.
+>                        
+>  -u USERNAME, --username=USERNAME
+>                        Enter the username for the SSH connection to the
+>                        switch.
+>                        
+>  -p PASSWORD, --password=PASSWORD
+>                        Enter the password for the SSH connection to the
+>                        switch.
+>                        
+>  -x SWITCHPORT, --port=SWITCHPORT
+>                        Enter the port of the switch. i.e. FastEthernet0/1
+>                        
+>  -n SWITCHVLAN, --vlan-number=SWITCHVLAN
+>                        Enter the VLAN number of the switch. i.e. '30'
+>                        
+>  -o OPTION, --option=(check|assign)
+>                        Select if you are assigning or checking a port's vlan.
 
 # Test Example
 The project was tested on CentOS 7.
