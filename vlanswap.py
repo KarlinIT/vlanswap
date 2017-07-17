@@ -32,8 +32,6 @@ parser.add_option("-o", "--option",
 
 (options, args) = parser.parse_args()
 
-
-
 def disable_paging(remote_conn):
     # Disable paging on a Cisco router
 
@@ -57,7 +55,6 @@ def changePort(defPort, defVlan):
 def checkPort(defPort):
     remote_conn.send("\n")
     remote_conn.send("show interface " + defPort + " status\n")
-
 
 if __name__ == '__main__':
     # VARIABLES THAT NEED CHANGED
