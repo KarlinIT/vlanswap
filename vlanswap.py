@@ -32,6 +32,22 @@ parser.add_option("-n", "--vlan-number",
                   help="Enter the VLAN number of the switch. i.e. '30'")
 
 (options, args) = parser.parse_args()
+class Port(object):
+    def __init__(self, port, vlan):
+        self.port = port
+        self.vlan = vlan
+
+    def assign(self):
+        remote_conn.send("\n")
+        remote_conn.send("configure terminal\n")
+        remote_conn.send("interface " + self.port + "\n")
+        remote_conn.send("switchport access vlan " + self.vlan + "\n")
+        remote_conn.send("spanning-tree portfast\n")
+
+    def check(self):
+        remote_conn.send("\n")
+        remote_conn.send("show interface " + self.port + " status\n")
+
 
 def disable_paging(remote_conn):
     # Disable paging on a Cisco router
@@ -44,19 +60,6 @@ def disable_paging(remote_conn):
 
     return output
 
-# Assign the VLAN on called network port
-def changePort(defPort, defVlan):
-    remote_conn.send("\n")
-    remote_conn.send("configure terminal\n")
-    remote_conn.send("interface " + defPort + "\n")
-    remote_conn.send("switchport access vlan " + defVlan + "\n")
-    remote_conn.send("spanning-tree portfast\n")
-
-# Check VLAN status on called network port
-def checkPort(defPort):
-    remote_conn.send("\n")
-    remote_conn.send("show interface " + defPort + " status\n")
-
 if __name__ == '__main__':
     # VARIABLES THAT NEED CHANGED
     option = options.option
@@ -65,6 +68,7 @@ if __name__ == '__main__':
     password = options.password
     switchPort = options.switchPort
     vlanNumber = options.switchVLAN
+    portcmd = Port(switchPort, vlanNumber)
 
 
     # Create instance of SSHClient object
@@ -93,9 +97,9 @@ if __name__ == '__main__':
 
     # Now let's try to send the router a command
     if option == "check":
-        checkPort(switchPort)
+        portcmd.check()
     elif option == "assign":
-        changePort(switchPort, vlanNumber)
+        portcmd.assign()
     else:
         print("Unknown option")
 
