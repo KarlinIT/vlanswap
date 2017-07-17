@@ -50,15 +50,15 @@ Options:
 The project has been tested on CentOS 7.
 
 >[root@localhost vlanswap]# **python vlanswap.py -H 192.168.1.150 -u cisco -p cisco -x FastEthernet0/1 -n 30 -o check**
-
+>
 >SSH connection established to 192.168.1.150
-
+>
 >Interactive SSH session established
-
+>
 >Baker-Switch-01#
-
+>
 >Baker-Switch-01#show interface FastEthernet0/1 status
-
+>
 >Port      Name               Status       Vlan       Duplex  Speed Type
 >Fa0/1                        connected    30         a-full  a-100 10/100BaseTX
 >Baker-Switch-01#
