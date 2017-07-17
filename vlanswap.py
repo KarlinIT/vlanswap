@@ -3,7 +3,7 @@ import time
 from optparse import OptionParser
 
 # Option Parer Menu
-parser = OptionParser(usage="useage: %prog -o (check|assign) -H (IP Address) -u (Username) -p (Password) -x (Port) -n (VLAN Number)",
+parser = OptionParser(usage="useage: %prog -o (check|assign) -H (IP Address) -u (Username) -p (Password) -x (Port) -n (VLAN Number) -o (check|assign)",
                       version="VLAN Swap 1.0")
 parser.add_option("-H", "--hostname",
                   action="store",
