@@ -47,7 +47,7 @@ Options:
                         Select if you are assigning or checking a port's vlan.
 
 # Test Example
-The project has been tested on CentOS 7.
+The project was tested on CentOS 7.
 
 >[root@localhost vlanswap]# **python vlanswap.py -H 192.168.1.150 -u cisco -p cisco -x FastEthernet0/1 -n 30 -o check**
 >
