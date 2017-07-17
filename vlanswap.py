@@ -21,7 +21,7 @@ parser.add_option("-x", "--port",
                   action="store",
                   dest="switchPort",
                   help="Enter the port of the switch. i.e. FastEthernet0/1")
-parser.add_option("-n", "--number",
+parser.add_option("-n", "--vlan-number",
                   action="store",
                   dest="switchVLAN",
                   help="Enter the VLAN number of the switch. i.e. '30'")
@@ -31,6 +31,7 @@ parser.add_option("-o", "--option",
                   help="Select if you are assigning or checking a port's vlan.")
 
 (options, args) = parser.parse_args()
+
 
 
 def disable_paging(remote_conn):
@@ -44,20 +45,18 @@ def disable_paging(remote_conn):
 
     return output
 
-# Change the VLAN on called network port
+# Assign the VLAN on called network port
 def changePort(defPort, defVlan):
     remote_conn.send("\n")
     remote_conn.send("configure terminal\n")
     remote_conn.send("interface " + defPort + "\n")
     remote_conn.send("switchport access vlan " + defVlan + "\n")
+    remote_conn.send("spanning-tree portfast\n")
 
 # Check VLAN status on called network port
 def checkPort(defPort):
     remote_conn.send("\n")
-    remote_conn.send("show interface " + defPort + "\n")
-
-#def main():
-
+    remote_conn.send("show interface " + defPort + " status\n")
 
 
 if __name__ == '__main__':
