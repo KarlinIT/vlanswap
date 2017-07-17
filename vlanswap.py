@@ -44,12 +44,14 @@ def disable_paging(remote_conn):
 
     return output
 
+# Change the VLAN on called network port
 def changePort(defPort, defVlan):
     remote_conn.send("\n")
     remote_conn.send("configure terminal\n")
     remote_conn.send("interface " + defPort + "\n")
     remote_conn.send("switchport access vlan " + defVlan + "\n")
 
+# Check VLAN status on called network port
 def checkPort(defPort):
     remote_conn.send("\n")
     remote_conn.send("show interface " + defPort + "\n")
