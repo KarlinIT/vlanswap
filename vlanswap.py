@@ -32,6 +32,7 @@ parser.add_option("-n", "--vlan-number",
                   help="Enter the VLAN number of the switch. i.e. '30'")
 
 (options, args) = parser.parse_args()
+
 class Port(object):
     def __init__(self, port, vlan):
         self.port = port
@@ -47,7 +48,6 @@ class Port(object):
     def check(self):
         remote_conn.send("\n")
         remote_conn.send("show interface " + self.port + " status\n")
-
 
 def disable_paging(remote_conn):
     # Disable paging on a Cisco router
@@ -68,8 +68,9 @@ if __name__ == '__main__':
     password = options.password
     switchPort = options.switchPort
     vlanNumber = options.switchVLAN
-    portcmd = Port(switchPort, vlanNumber)
 
+    # Variable for the Port class
+    portcmd = Port(switchPort, vlanNumber)
 
     # Create instance of SSHClient object
     remote_conn_pre = paramiko.SSHClient()
@@ -101,7 +102,7 @@ if __name__ == '__main__':
     elif option == "assign":
         portcmd.assign()
     else:
-        print("Unknown option")
+        print("Unknown -o switch option. Use the -h switch to see additionl help on the script.")
 
     # Wait for the command to complete
     time.sleep(2)
