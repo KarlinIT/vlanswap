@@ -9,7 +9,7 @@ parser = OptionParser(usage="useage: %prog -o (check|assign) -H (IP Address) -u 
 parser.add_option("-o", "--option",
                   action="store",
                   dest="option",
-                  help="Select if you are assigning or checking a port's vlan.")
+                  help="Select (assign|check) depending if you are assigning or checking a port's vlan.")
 parser.add_option("-H", "--hostname",
                   action="store",
                   dest="ipAddr",
@@ -30,24 +30,42 @@ parser.add_option("-n", "--vlan-number",
                   action="store",
                   dest="switchVLAN",
                   help="Enter the VLAN number of the switch. i.e. '30'")
+parser.add_option("-s", "--speed",
+                  action="store",
+                  dest="portSpeed",
+                  help="Enter the speed for the port. Options: (100|1000|auto)")
+parser.add_option("-d", "--duplex",
+                  action="store",
+                  dest="portDuplex",
+                  help="Enter the duplex for the port. Options: (half|full|auto)")
 
 (options, args) = parser.parse_args()
 
 class Port(object):
-    def __init__(self, port, vlan):
+    def __init__(self, port, vlan, speed, duplex):
         self.port = port
         self.vlan = vlan
-
-    def assign(self):
-        remote_conn.send("\n")
-        remote_conn.send("configure terminal\n")
-        remote_conn.send("interface " + self.port + "\n")
-        remote_conn.send("switchport access vlan " + self.vlan + "\n")
-        remote_conn.send("spanning-tree portfast\n")
+        self.speed = speed
+        self.duplex = duplex
 
     def check(self):
         remote_conn.send("\n")
         remote_conn.send("show interface " + self.port + " status\n")
+
+    def focus(self):
+        remote_conn.send("\n")
+        remote_conn.send("configure terminal\n")
+        remote_conn.send("interface " + self.port + "\n")
+
+    def assignVLAN(self):
+        remote_conn.send("switchport access vlan " + self.vlan + "\n")
+        remote_conn.send("spanning-tree portfast\n")
+
+    def assignSpeed(self):
+        remote_conn.send("speed " + self.speed + "\n")
+
+    def assignDuplex(self):
+        remote_conn.send("duplex " + self.duplex + "\n")
 
 def disable_paging(remote_conn):
     # Disable paging on a Cisco router
@@ -68,9 +86,11 @@ if __name__ == '__main__':
     password = options.password
     switchPort = options.switchPort
     vlanNumber = options.switchVLAN
+    speed = options.portSpeed
+    duplex = options.portDuplex
 
     # Variable for the Port class
-    portcmd = Port(switchPort, vlanNumber)
+    port = Port(switchPort, vlanNumber, speed, duplex)
 
     # Create instance of SSHClient object
     remote_conn_pre = paramiko.SSHClient()
@@ -98,9 +118,19 @@ if __name__ == '__main__':
 
     # Now let's try to send the router a command
     if option == "check":
-        portcmd.check()
+        port.check()
     elif option == "assign":
-        portcmd.assign()
+        if vlanNumber != None or speed != None or duplex != None:
+            port.focus()
+            if vlanNumber != None:
+                port.assignVLAN()
+            if speed != None:
+                port.assignSpeed()
+            if duplex != None:
+                port.assignDuplex()
+        else:
+            print ("Nothing was selected to assign. Choose a VLAN number, port speed, or port duplex option.")
+            remote_conn_pre.close()
     else:
         print("Unknown -o switch option. Use the -h switch to see additionl help on the script.")
 
