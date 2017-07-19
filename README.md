@@ -40,13 +40,18 @@ Review the usage output and the required switches below:
 >                        
 >  -x SWITCHPORT, --port=SWITCHPORT
 >                        Enter the port of the switch. i.e. FastEthernet0/1
->                        
->  -n SWITCHVLAN, --vlan-number=SWITCHVLAN
->                        Enter the VLAN number of the switch. i.e. '30'
->                        
+>
 >  -o OPTION, --option=(check|assign)
 >                        Select if you are assigning or checking a port's vlan.
-
+>  -n SWITCHVLAN, --vlan-number=SWITCHVLAN
+>                        Requires the assign option. Enter the VLAN number of the switch. i.e. '30'
+>
+>  -s PORTSPEED, --speed=PORTSPEED
+>                        Requires the assign option. Enter the speed of the switch port. i.e. auto, 100, 1000, etc.
+>
+>  -d PORTDUPLEX, --duplex=PORTDUPLEX
+>                        Requires the assign option. Enter the VLAN number of the switch. i.e. auto, half, full
+>
 # Test Example
 The project was tested on CentOS 7.
 
