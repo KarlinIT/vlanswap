@@ -50,7 +50,7 @@ Review the usage output and the required switches below:
 # Test Example
 The project was tested on CentOS 7.
 
->[root@localhost vlanswap]# **python vlanswap.py -H 192.168.1.150 -u cisco -p cisco -x FastEthernet0/1 -n 30 -o check**
+>[root@localhost vlanswap]# **python vlanswap.py -H 192.168.1.150 -u cisco -p cisco -x FastEthernet0/1 -o check**
 >
 >SSH connection established to 192.168.1.150
 >
